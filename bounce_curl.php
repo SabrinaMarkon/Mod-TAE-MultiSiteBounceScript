@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+######### COPYRIGHT 2015 SABRINA MARKON PHPSITESCRIPTS.COM. ALL RIGHTS RESERVED. RESALE IS ABSOLUTELY NOT PERMITTED! ##########################
 $key = "bouncenetwork";
 if ($key != $bounces)
 {
