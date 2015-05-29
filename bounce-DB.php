@@ -57,11 +57,40 @@ bouncedate datetime not null
 - update sendsolos and super network send files on all sites
 - /admin/edit.php, /admin/deletethismember.php, /admin/editnow.php on all sites
 - update /admin/adminnavigation on all sites
-- add bounce files on all sites (except 2 master files which only go on master site)
-- git this script
+- add bounce files to all sites in network:
 
-<tr>
-<form method="POST" action="bounce_viewer.php">
-<td align="center" valign="top"><input type="submit" value="Bounces" style="width: 170">
-</td></tr>
-</form>
+MASTER SITE:
+bounce.php
+bounce_curl.php
+bounce_curl_all.php
+bounce_max.php
+/admin/bounce_admin.php
+/admin/bounce_viewer.php
+/admin/adminnavigation.php -> different for master because bounce_admin.php is included.
+/admin/edit.php
+/admin/editnow.php
+/admin/deletethismember.php
+/admin/ALL SEND FILES
+
+PARTNER SITES:
+bounce_curl.php
+bounce_curl_all.php
+bounce_max.php
+/admin/bounce_viewer.php
+/admin/adminnavigation
+/admin/edit.php
+/admin/editnow.php
+/admin/deletethismember.php
+/admin/ALL SEND FILES
+
+
+
+
+<?php
+if ($bouncescriptenabled == "yes")
+{
+?>
+<input type="button" value="*Site* Member Bounces" style="font-size: 10px; width: 220px;" onclick="window.location='bounce_viewer.php'">
+<?php
+}
+?>
