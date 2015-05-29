@@ -1,0 +1,28 @@
+Login to Cpanel
+
+Click "Account Level Filtering"
+
+
+Filter Name: Bounce
+
+Rules:
+
+To
+contains
+bounce@yourdomain.com
+
+Actions:
+1) Pipe to a program
+|/home/CPANEL_USERNAME/public_html/bounce.php
+
+2) Discard Messard
+
+
+CHMOD bounce.php 777
+
+--------------------------
+
+Cpanel "Set Default Address"
+
+Pipe to a program:
+public_html/kangaroopaw/bounce.php
