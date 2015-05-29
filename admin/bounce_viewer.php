@@ -10,10 +10,12 @@ exit;
 }
 include "../header.php";
 include "../style.php";
+/*
 function formatDate($val) {
 	$arr = explode("-", $val);
 	return date("M d Y", mktime(0,0,0, $arr[1], $arr[2], $arr[0]));
 }
+*/
 if( session_is_registered("alogin") ) {
 include "adminnavigation.php";
 ?>

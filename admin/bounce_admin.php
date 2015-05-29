@@ -10,10 +10,12 @@ exit;
 }
 include "../header.php";
 include "../style.php";
+/*
 function formatDate($val) {
 	$arr = explode("-", $val);
 	return date("M d Y", mktime(0,0,0, $arr[1], $arr[2], $arr[0]));
 }
+*/
 if( session_is_registered("alogin") ) {
 include "adminnavigation.php";
 ?>
@@ -29,20 +31,20 @@ if ($action == "savesettings")
 $bouncescriptenabled = $_POST["bouncescriptenabled"];
 $bounceconsequence = $_POST["bounceconsequence"];
 $bounceconsequenceinallsites = $_POST["bounceconsequenceinallsites"];
-$bouncesallowed = $_POST["bouncesallowed"];
+$bouncesmax = $_POST["bouncesmax"];
 $q = "update settings set setting=\"$bouncescriptenabled\" where name=\"bouncescriptenabled\"";
 $r = mysql_query($q);
 $q = "update settings set setting=\"$bounceconsequence\" where name=\"bounceconsequence\"";
 $r = mysql_query($q);
 $q = "update settings set setting=\"$bounceconsequenceinallsites\" where name=\"bounceconsequenceinallsites\"";
 $r = mysql_query($q);
-$q = "update settings set setting=\"$bouncesallowed\" where name=\"bouncesmax\"";
+$q = "update settings set setting=\"$bouncesmax\" where name=\"bouncesmax\"";
 $r = mysql_query($q);
 						 $maxarray = array (
 								"bouncescriptenabled" => $bouncescriptenabled,
 								"bounceconsequence" => $bounceconsequence,
 								"bounceconsequenceinallsites" => $bounceconsequenceinallsites,
-								"bouncesallowed" => $bouncesallowed
+								"bouncesmax" => $bouncesmax
 						        );
 						 $dataels = array();
 						 foreach (array_keys($maxarray) as $thiskey) {
@@ -109,6 +111,35 @@ echo "<center><p><b>There have been no new bounced emails in the past 7 days.</b
 if ($totalrows > 0)
 {
 echo "<br><b>Total Bounced Emails: " . $countrows . "</b><br><br>";
+}
+?>
+<br>
+<center>
+<form action="bounce_admin.php" method="post">
+<input type="hidden" name="action" value="savesettings">
+Enabled Automatic Bounce Script:&nbsp;<select name="bouncescriptenabled"><option value="yes" <?php if ($bouncescriptenabled == "yes") { echo "selected"; } ?>>YES</option><option value="no" <?php if ($bouncescriptenabled != "yes") { echo "selected"; } ?>>NO</option></select>
+<br>
+How to handle Bouncing members (vacation is recommended since most members bounce sometimes!):&nbsp;<select name="bounceconsequence"><option value="vacation" <?php if ($bounceconsequence == "vacation") { echo "selected"; } ?>>Put on Vacation</option><option value="deletemember" <?php if ($bounceconsequence != "vacation") { echo "selected"; } ?>>Delete Member</option></select>
+<br>
+Bounces allowed (for each site) before member is deleted or placed on vacation in that site:&nbsp;<select name="bouncesmax">
+<?php
+for ($i=1;$i<=20;$i++)
+{
+?>
+<option value="<?php echo $i ?>" <?php if ($bouncesmax == $i) { echo "selected"; } ?>><?php echo $i ?></option>
+<?php
+}
+?>
+</select>
+<br>
+Delete or Vacation a Bouncing member in ALL sites (not just the site they bounced in):&nbsp;<select name="bounceconsequenceinallsites"><option value="yes" <?php if ($bounceconsequenceinallsites == "yes") { echo "selected"; } ?>>YES</option><option value="no" <?php if ($bounceconsequenceinallsites != "yes") { echo "selected"; } ?>>NO</option></select>
+<br><br>
+<input type="submit" value="Save">
+</form>
+</center>
+<?php
+if ($totalrows > 0)
+{
 if ($spew != "")
 	{
 echo $spew;
@@ -125,30 +156,6 @@ if ($spew == "")
 <?php
 	}
 ?>
-<br>
-<center>
-<form action="bounce_admin.php" method="post">
-<input type="hidden" name="action" value="savesettings">
-Enabled Automatic Bounce Script:&nbsp;<select name="bouncescriptenabled"><option value="yes" <?php if ($bouncescriptenabled == "yes") { echo "selected"; } ?>>YES</option><option value="no" <?php if ($bouncescriptenabled != "yes") { echo "selected"; } ?>>NO</option></select>
-<br>
-How to handle Bouncing members (vacation is recommended since most members bounce sometimes!):&nbsp;<select name="bounceconsequence"><option value="vacation" <?php if ($bounceconsequence == "vacation") { echo "selected"; } ?>>Put on Vacation</option><option value="deletemember" <?php if ($bounceconsequence != "vacation") { echo "selected"; } ?>>Delete Member</option></select>
-<br>
-Bounces allowed (for each site) before member is deleted or placed on vacation in that site:&nbsp;<select name="bouncesallowed">
-<?php
-for ($i=1;$i<=20;$i++)
-{
-?>
-<option value="<?php echo $i ?>" <?php if ($bouncesmax == $i) { echo "selected"; } ?>><?php echo $i ?></option>
-<?php
-}
-?>
-</select>
-<br>
-Delete or Vacation a Bouncing member in ALL sites (not just the site they bounced in):&nbsp;<select name="bounceconsequenceinallsites"><option value="yes" <?php if ($bounceconsequenceinallsites == "yes") { echo "selected"; } ?>>YES</option><option value="no" <?php if ($bounceconsequenceinallsites != "yes") { echo "selected"; } ?>>NO</option></select>
-<br><br>
-<input type="submit" value="Save">
-</form>
-</center>
 <br>
 <table width="90%" cellpadding="4" cellspacing="2" border="0" align="center" bgcolor="#999999">
 <tr bgcolor="#eeeeee">

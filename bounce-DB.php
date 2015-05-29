@@ -51,6 +51,8 @@ bouncedate datetime not null
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 
+- make sure admin files match the appearance of the TAE (ie. gumtree script vs 3aussies script versions)
+- uncomment formatDate in bounce_admin.php and bounce_viewer.php if this function is NOT in a TAE's config.php
 - phplockit
 - update sendsolos and super network send files on all sites
 - /admin/edit.php, /admin/deletethismember.php, /admin/editnow.php on all sites

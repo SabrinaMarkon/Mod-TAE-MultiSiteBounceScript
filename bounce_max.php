@@ -12,8 +12,8 @@ if($_REQUEST['bouncesallowed'])
 $bouncescriptenabled = $_REQUEST["bouncescriptenabled"];
 $bounceconsequence = $_REQUEST["bounceconsequence"];
 $bounceconsequenceinallsites = $_REQUEST["bounceconsequenceinallsites"];
-$bouncesallowed= $_REQUEST['bouncesallowed'];
-$q = "update settings set setting=\"$bouncesallowed\" where name=\"bouncesmax\"";
+$bouncesmax= $_REQUEST['bouncesmax'];
+$q = "update settings set setting=\"$bouncesmax\" where name=\"bouncesmax\"";
 $r = mysql_query($q);
 $q = "update settings set setting=\"$bounceconsequence\" where name=\"bounceconsequence\"";
 $r = mysql_query($q);
